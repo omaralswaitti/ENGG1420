@@ -5,11 +5,8 @@
 package com.mycompany.project;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.List;
-import java.util.function.Consumer;
 import java.io.*;
 import java.util.*;
 
@@ -18,7 +15,8 @@ import java.util.*;
  * @author SidZa
  */
 
-public class Split {
+public class Split 
+{
   
     private int lines;
 
@@ -35,7 +33,8 @@ public class Split {
             return outputFiles;
         }
 
-        BufferedReader reader = new BufferedReader(new FileReader(inputFile)); // Create a BufferedReader to read the input file line by line
+        // Create a BufferedReader to read the input file line by line
+        BufferedReader reader = new BufferedReader(new FileReader(inputFile)); 
         String line = null;
         int lineCount = 0;
         int partNumber = 1;
@@ -43,7 +42,7 @@ public class Split {
         String outputFileName = null;
 
         while ((line = reader.readLine()) != null) 
-        { 
+        {
             if (lineCount == 0) // If this is the first line of a new output file, create a new file and writer
             {            
                 outputFileName = inputFile.getName() + ".part" + partNumber + ".txt"; // Generate the output file name         
@@ -82,32 +81,5 @@ public class Split {
             outputFiles.addAll(outputFileList);
         }  
         return outputFiles; // Return the list of output files that were generated
-    }
-
-
-
-    //CALL IN MAIN
-    public static void main(String[] args) 
-    {
-        Split splitter = new Split(10);// Create a new instance of the SplitFile class with the desired number of lines per output file    
-        List<File> inputFiles = new ArrayList<>();// Create a list of input files to be split
-        inputFiles.add(new File("File1.txt"));
-        inputFiles.add(new File("File2.txt"));
-
-        try 
-        {      
-            List<String> outputFiles = splitter.split(inputFiles); // Call the split() method to split the input files into multiple output files
-            // Do something with the list of output file names
-            // For example, you could print them out to the console:
-            for (String fileName : outputFiles) 
-            {
-                System.out.println(fileName);
-            }
-        } 
-        catch (IOException e) 
-        {
-            // Handle any exceptions that might occur during the file splitting process
-            e.printStackTrace();
-        }
     }
 }
