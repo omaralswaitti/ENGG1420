@@ -30,14 +30,12 @@ public class Split {
     public List<String> split(File inputFile) throws IOException // Method to split a single file into multiple files
     {
         List<String> outputFiles = new ArrayList<>();
-        // Ignore directories
         if (inputFile.isDirectory()) 
         {
             return outputFiles;
         }
 
-        // Create a BufferedReader to read the input file line by line
-        BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+        BufferedReader reader = new BufferedReader(new FileReader(inputFile)); // Create a BufferedReader to read the input file line by line
         String line = null;
         int lineCount = 0;
         int partNumber = 1;
@@ -74,18 +72,42 @@ public class Split {
        
         return outputFiles; // Return the list of output files that were generated
     }
-
-    // Method to split a list of files into multiple files
-    public List<String> split(List<File> inputFiles) throws IOException {
+    
+    public List<String> split(List<File> inputFiles) throws IOException // Method to split a list of files into multiple files
+    {
         List<String> outputFiles = new ArrayList<>();
-
-        // Split each input file and add its output files to the list of output files
-        for (File inputFile : inputFiles) {
+        for (File inputFile : inputFiles) // Split each input file and add its output files to the list of output files
+        {
             List<String> outputFileList = split(inputFile);
             outputFiles.addAll(outputFileList);
-        }
+        }  
+        return outputFiles; // Return the list of output files that were generated
+    }
 
-        // Return the list of output files that were generated
-        return outputFiles;
+
+
+    //CALL IN MAIN
+    public static void main(String[] args) 
+    {
+        Split splitter = new Split(10);// Create a new instance of the SplitFile class with the desired number of lines per output file    
+        List<File> inputFiles = new ArrayList<>();// Create a list of input files to be split
+        inputFiles.add(new File("File1.txt"));
+        inputFiles.add(new File("File2.txt"));
+
+        try 
+        {      
+            List<String> outputFiles = splitter.split(inputFiles); // Call the split() method to split the input files into multiple output files
+            // Do something with the list of output file names
+            // For example, you could print them out to the console:
+            for (String fileName : outputFiles) 
+            {
+                System.out.println(fileName);
+            }
+        } 
+        catch (IOException e) 
+        {
+            // Handle any exceptions that might occur during the file splitting process
+            e.printStackTrace();
+        }
     }
 }
