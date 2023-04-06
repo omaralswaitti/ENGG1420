@@ -7,6 +7,8 @@ import java.util.List;
 
 public class ContentFilter {
 
+    // Method to filter the given entries based on the specified key
+    // Returns a list of entries that contain the key
     public static List<String> apply(List<String> entries, String key) {
         List<String> output = new ArrayList<>();
         for (String entry : entries) {
@@ -17,6 +19,8 @@ public class ContentFilter {
         return output;
     }
 
+    // Method to check if the specified entry contains the specified key
+    // Returns true if the entry contains the key, false otherwise
     private static boolean containsKey(String entry, String key) {
         if (entry == null || key == null) {
             return false;
